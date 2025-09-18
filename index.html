@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Quieres salir conmigo, ARIANA?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+      background: #000; /* Fondo negro sólido */
+      border: 8px solid;
+      border-image: linear-gradient(45deg, #ff1744, #ff80ab, #ff1744) 1;
+      animation: borderGlow 3s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { border-image: linear-gradient(45deg, #ff1744, #ff80ab, #ff1744) 1; }
+      50% { border-image: linear-gradient(45deg, #ff80ab, #ff1744, #ff80ab) 1; }
+      100% { border-image: linear-gradient(45deg, #ff1744, #ff80ab, #ff1744) 1; }
+    }
+
+    /* Fondo de partículas suaves y spam de corazones/palabras */
+    .floating-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .floating-bg span {
+      position: absolute;
+      bottom: -50px;
+      font-size: 20px;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Corazón neón con brillo extra */
+    .neon-heart {
+      position: relative;
+      width: 250px;
+      height: 220px;
+      margin-bottom: 20px;
+      animation: heartPulse 1.5s infinite;
+    }
+    .neon-heart::before,
+    .neon-heart::after {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 200px;
+      border-radius: 100px 100px 0 0;
+      background: red;
+      top: 0;
+      filter: drop-shadow(0 0 15px #ff1744) drop-shadow(0 0 30px #ff80ab);
+    }
+    .neon-heart::before {
+      left: 120px;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+    .neon-heart::after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+    .photo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+      z-index: 2;
+    }
+    @keyframes heartPulse {
+      0%,100% { transform: scale(1); filter: drop-shadow(0 0 15px #ff1744) drop-shadow(0 0 30px #ff80ab); }
+      50% { transform: scale(1.1); filter: drop-shadow(0 0 25px #ff1744) drop-shadow(0 0 50px #ff80ab); }
+    }
+
+    /* Texto neón */
+    h1 {
+      font-size: 3em;
+      margin: 20px 0 10px 0;
+      text-shadow: 0 0 8px #ff1744, 0 0 15px #ff80ab, 0 0 20px #ff1744;
+      animation: neonText 2s ease-in-out infinite alternate;
+    }
+    p {
+      font-size: 1.3em;
+      color: #ffb6c1;
+      margin-bottom: 25px;
+      font-style: italic;
+      text-shadow: 0 0 8px #ff1744, 0 0 15px #ff80ab;
+      animation: neonText 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes neonText {
+      0% { text-shadow: 0 0 8px #ff1744, 0 0 15px #ff80ab; }
+      100% { text-shadow: 0 0 20px #ff1744, 0 0 30px #ff80ab; }
+    }
+
+    /* Botones */
+    .buttons {
+      margin-top: 10px;
+      position: relative;
+      width: 100%;
+      height: 200px;
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 1.2em;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+      position: absolute;
+    }
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #ff1744;
+    }
+    .yes {
+      background: #ff1744;
+      color: #fff;
+      left: 40%;
+      top: 50%;
+    }
+    .no {
+      background: #444;
+      color: #fff;
+      left: 60%;
+      top: 50%;
+    }
+
+    /* Fuegos artificiales */
+    .firework {
+      position: fixed;
+      border-radius: 50%;
+      animation: explode 1.5s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes explode {
+      from { transform: scale(0); opacity: 1; }
+      to { transform: scale(4); opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Fondo de spam -->
+  <div class="floating-bg"></div>
+
+  <!-- Corazón con foto -->
+  <div class="neon-heart">
+    <img src="foto1.jpeg" alt="Foto" class="photo">
+  </div>
+
+  <h1>¿QUIERES SALIR CONMIGO, ARIANA?</h1>
+  <p>💌 Tal vez no soy perfecto, pero quiero darte lo mejor de mí 💖</p>
+
+  <div class="buttons">
+    <button class="yes" onclick="sayYes()">Sí 💖</button>
+    <button class="no" id="noBtn">No 😢</button>
+  </div>
+
+  <!-- Reproductor Spotify -->
+  <iframe 
+      style="border-radius:12px; margin-top: 20px;" 
+      src="https://open.spotify.com/embed/track/4V4jR4raE0uMegYvuwyMgt?utm_source=generator" 
+      width="350" 
+      height="100" 
+      frameBorder="0" 
+      allowfullscreen="" 
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const floatingBg = document.querySelector('.floating-bg');
+
+    // Botón "No" que se escapa
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    // Crear corazones y palabras flotantes
+    function createFloating() {
+      const element = document.createElement('span');
+      if(Math.random() < 0.5) {
+        element.innerHTML = "❤";
+        element.style.color = ["red","pink","magenta","hotpink"][Math.floor(Math.random()*4)];
+      } else {
+        element.innerHTML = "💗ARI💗";
+        element.style.color = "white"; // Letras blancas
+      }
+      element.style.left = Math.random() * 100 + "vw";
+      element.style.fontSize = (Math.random() * 20 + 15) + "px";
+      element.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      floatingBg.appendChild(element);
+      setTimeout(() => element.remove(), 10000);
+    }
+    setInterval(createFloating, 400);
+
+    // Fuegos artificiales al decir "Sí"
+    function sayYes() {
+      for (let i = 0; i < 70; i++) {
+        setTimeout(() => {
+          const firework = document.createElement("div");
+          firework.classList.add("firework");
+          firework.style.left = (Math.random() * window.innerWidth) + "px";
+          firework.style.top = (Math.random() * window.innerHeight) + "px";
+          firework.style.background = ["red", "pink", "white", "magenta", "hotpink"][Math.floor(Math.random() * 5)];
+          firework.style.width = firework.style.height = (Math.random() * 12 + 6) + "px";
+          document.body.appendChild(firework);
+          setTimeout(() => firework.remove(), 1500);
+        }, i * 60);
+      }
+      alert("¡Sabía que dirías que sí, ARI NO TE VAS A ARREPENTIR! 💖");
+    }
+  </script>
+</body>
+</html>
